@@ -6,7 +6,7 @@ export default function Checkout() {
     // Make sure to call `loadStripe` outside of a component’s render to avoid
     // recreating the `Stripe` object on every render.
     // This is your test publishable API key.
-    const stripePromise = loadStripe("pk_test_51SsB59BIoiFvCCMgafsN9prkR0PiopoBmRaX4S6ECQTUPIpB6i9OBBHsQQlnbtZc2nECO8cqf0PDcNQpXCDn6Woy00v0plQyID");
+    const stripePromise = loadStripe("pk_test_51T8PCFIfa2THv2WPJ42FDVayR6DVSO6b2PdtJcjkYnkOE7YUWF2hPX79FzJUpkGPN5psFciTjEGWkoyjS4uV5hF600rA1IOdpE");
 
     const fetchClientSecret = useCallback(async () => {
         // Create a Checkout Session

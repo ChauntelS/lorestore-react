@@ -5,6 +5,7 @@ export default function Home() {
 
             <p>
                 Display all products with links to Details page.
+
             </p>
         </>
     )
