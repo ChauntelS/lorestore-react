@@ -1,22 +1,39 @@
 import {useEffect, useState} from "react";
 import {Navigate} from "react-router";
+import Cookies from "js-cookie";
 
 export default function Confirmation() {
-    const [status, setStatus] = useState(null);
+    const sessionId = new URLSearchParams(window.location.search).get('session_id');
+    const [status, setStatus] = useState<string | null>(sessionId ? null : 'missing');
     const [customerEmail, setCustomerEmail] = useState('');
+    const COOKIE_KEY = "shopping_cart"
 
     useEffect(() => {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const sessionId = urlParams.get('session_id');
+        if (!sessionId) {
+            return;
+        }
 
-        fetch(`http://localhost:8080/checkout/session-status?session_id=${sessionId}`)
+        let isActive = true;
+
+        fetch(`http://localhost:8080/checkout/session-status?sessionId=${sessionId}`)
             .then((res) => res.json())
             .then((data) => {
+                if (!isActive) {
+                    return;
+                }
                 setStatus(data.status);
                 setCustomerEmail(data.customer_email);
+            })
+            .catch(() => {
+                if (isActive) {
+                    setStatus('error');
+                }
             });
-    }, []);
+
+        return () => {
+            isActive = false;
+        };
+    }, [sessionId]);
 
     if (status === 'open') {
         return (
@@ -25,16 +42,42 @@ export default function Confirmation() {
     }
 
     if (status === 'complete') {
-        return (
-            <section id="success">
-                <p>
-                    We appreciate your business! A confirmation email will be sent to {customerEmail}.
+        // clear the cookie
+        Cookies.remove(COOKIE_KEY);
 
-                    If you have any questions, please email <a href="mailto:orders@example.com">orders@example.com</a>.
+        return (
+            <section id="success" className="page-card success-card">
+                <p className="eyebrow">Order confirmed</p>
+                <h1>Confirmation</h1>
+                <p className="lead">
+                    Thanks for shopping with true north unkown. A confirmation email will be sent to {customerEmail}.
+                </p>
+                <div className="callout">
+                    Questions about your order? Email <a href="mailto:orders@example.com">orders@example.com</a>.
+                </div>
+            </section>
+        )
+    }
+
+    if (status === 'missing' || status === 'error') {
+        return (
+            <section className="page-card success-card">
+                <p className="eyebrow">Session issue</p>
+                <h1>Confirmation</h1>
+                <p className="lead">
+                    We could not verify this checkout session yet. Please return to checkout and try again.
                 </p>
             </section>
         )
     }
 
-    return null;
+    return (
+        <section className="page-card success-card">
+            <p className="eyebrow">Preparing receipt</p>
+            <h1>Confirmation</h1>
+            <p className="lead">
+                We are checking your payment status and preparing your order confirmation.
+            </p>
+        </section>
+    )
 }
