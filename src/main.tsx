@@ -2,7 +2,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import './index.css'
@@ -24,7 +23,7 @@ createRoot(document.getElementById('root')!).render(
                     <Route path="cart" element={<Cart />} />
                     <Route path="checkout" element={<Checkout />} />
                     <Route path="confirmation" element={<Confirmation />} />
-                    <Route path="details" element={<Details />} />
+                    <Route path="details/:id" element={<Details />} />
                 </Route>
             </Routes>
         </BrowserRouter>

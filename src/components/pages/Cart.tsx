@@ -1,3 +1,5 @@
+import {Link} from "react-router";
+
 export default function Cart() {
     return (
         <section className="page-card">
@@ -8,8 +10,8 @@ export default function Cart() {
             </p>
             <ul className="Lore Subject-list">
                 <li>Track quantities for each item in your cart.</li>
-                <li>Confirm variants like size, color, and style.</li>
                 <li>Proceed to secure checkout when you are ready.</li>
+                <Link to="/Checkout" className="btn btn-primary">Proceed to Checkout</Link>
             </ul>
         </section>
     )

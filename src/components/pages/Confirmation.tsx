@@ -3,37 +3,22 @@ import {Navigate} from "react-router";
 import Cookies from "js-cookie";
 
 export default function Confirmation() {
-    const sessionId = new URLSearchParams(window.location.search).get('session_id');
-    const [status, setStatus] = useState<string | null>(sessionId ? null : 'missing');
+    const [status, setStatus] = useState(null);
     const [customerEmail, setCustomerEmail] = useState('');
     const COOKIE_KEY = "shopping_cart"
 
     useEffect(() => {
-        if (!sessionId) {
-            return;
-        }
-
-        let isActive = true;
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const sessionId = urlParams.get('session_id');
 
         fetch(`http://localhost:8080/checkout/session-status?sessionId=${sessionId}`)
             .then((res) => res.json())
             .then((data) => {
-                if (!isActive) {
-                    return;
-                }
                 setStatus(data.status);
                 setCustomerEmail(data.customer_email);
-            })
-            .catch(() => {
-                if (isActive) {
-                    setStatus('error');
-                }
             });
-
-        return () => {
-            isActive = false;
-        };
-    }, [sessionId]);
+    }, []);
 
     if (status === 'open') {
         return (
@@ -43,7 +28,8 @@ export default function Confirmation() {
 
     if (status === 'complete') {
         // clear the cookie
-        Cookies.remove(COOKIE_KEY);
+        Cookies.remove(COOKIE_KEY)
+
 
         return (
             <section id="success" className="page-card success-card">

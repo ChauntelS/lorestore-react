@@ -40,6 +40,7 @@ export default function Checkout() {
             </p>
 
             <div className="checkout-frame">
+                
                 <EmbeddedCheckoutProvider
                     stripe={stripePromise}
                     options={options}

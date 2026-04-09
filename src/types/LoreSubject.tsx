@@ -1,7 +1,7 @@
 export interface LoreSubject{
-    id: number,
-    title: string,
+    id: number;
+    name: string;
     imageFilePath: string;
     type: string;
-    price: number;
-};
+    loreSummary: string;
+}

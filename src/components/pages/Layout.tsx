@@ -9,7 +9,7 @@ export default function Layout() {
                     <Link to="/" className="site-brand">
                         <span className="brand-mark" aria-hidden="true">☾</span>
                         <span>
-                            <strong>True North unkown</strong>
+                            <strong>True North unknown</strong>
                             <small>Lore creature casefiles</small>
                         </span>
                     </Link>
@@ -17,8 +17,8 @@ export default function Layout() {
 
                 <nav className="site-nav" aria-label="Primary">
                     <Link to="/">Home</Link>
-                    {/*<Link to="/cart">Cart</Link>*/}
-                    <Link to="/checkout">Checkout</Link>
+                    <Link to="/cart">Cart</Link>
+                    {/*<Link to="/checkout">Checkout</Link>*/}
                 </nav>
             </header>
 
@@ -34,7 +34,7 @@ export default function Layout() {
 
             <footer className="site-footer">
                 <span className="footer-note">Collect relics from the creatures of legend.</span>
-                <span>true north unkown, &copy; 2026</span>
+                <span>true north unknown, &copy; 2026</span>
             </footer>
         </div>
     )

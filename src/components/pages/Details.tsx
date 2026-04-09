@@ -14,12 +14,12 @@ export default function Details() {
     useEffect(() => {
         const fetchData = async () => {
             const res = await fetch('http://localhost:8080/loreSubject/' + id);
-            const movie = await res.json();
-            setLoreSubject(movie);
+            const loreSubject = await res.json();
+            setLoreSubject(loreSubject);
         };
 
         fetchData();
-    }, [id]);
+    }, []);
 
     const handleAddToCart = () => {
         const raw = Cookies.get(COOKIE_KEY);
@@ -29,7 +29,7 @@ export default function Details() {
 
         const updatedItems = existing
             ? cart.items.map((item: CartItem) =>
-                item.id === ?.id
+                item.id === loreSubject?.id
                     ? { ...item, quantity: item.quantity + quantity }
                     : item
             )
