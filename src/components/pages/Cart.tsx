@@ -121,8 +121,8 @@ export default function Cart() {
 
                                 <div className="cart-item-body">
                                     <h2>{item.name}</h2>
-                                    <p>${item.price.toFixed(2)} each</p>
-                                    <p><strong>Line total:</strong> ${(item.price * item.quantity).toFixed(2)}</p>
+                                    <p className="cart-price">${item.price.toFixed(2)} each</p>
+                                    <p className="cart-line-total"><strong>Line total:</strong> ${(item.price * item.quantity).toFixed(2)}</p>
 
                                     <div className="cart-controls">
                                         <button
@@ -133,7 +133,7 @@ export default function Cart() {
                                         >
                                             -
                                         </button>
-                                        <span>Qty: {item.quantity}</span>
+                                        <span className="qty-pill">Qty: {item.quantity}</span>
                                         <button
                                             type="button"
                                             className="btn btn-outline-light btn-sm"
@@ -156,8 +156,11 @@ export default function Cart() {
                     </ul>
 
                     <div className="callout cart-summary">
-                        <p><strong>Order total:</strong> ${cartTotal.toFixed(2)}</p>
-                        <Link to="/checkout" className="btn btn-primary">Proceed to Checkout</Link>
+                        <div>
+                            <p className="summary-label">Order total</p>
+                            <p className="summary-total">${cartTotal.toFixed(2)}</p>
+                        </div>
+                        <Link to="/checkout" className="btn btn-primary btn-luxury">Proceed to Checkout</Link>
                     </div>
                 </>
             )}

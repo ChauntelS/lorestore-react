@@ -1,4 +1,4 @@
-import {Link, Outlet} from "react-router";
+import {Link, NavLink, Outlet} from "react-router";
 import ChatWidget from "../ChatWidget.tsx";
 
 export default function Layout() {
@@ -16,8 +16,8 @@ export default function Layout() {
                 </div>
 
                 <nav className="site-nav" aria-label="Primary">
-                    <Link to="/">Home</Link>
-                    <Link to="/cart">Cart</Link>
+                    <NavLink to="/" end className={({isActive}) => isActive ? "is-active" : undefined}>Home</NavLink>
+                    <NavLink to="/cart" className={({isActive}) => isActive ? "is-active" : undefined}>Cart</NavLink>
                     {/*<Link to="/checkout">Checkout</Link>*/}
                 </nav>
             </header>

@@ -54,26 +54,26 @@ export default function ChatWidget() {
     };
 
     return (
-        <div className="position-fixed bottom-0 end-0 p-4" style={{ zIndex: 9999 }}>
+        <div className="chat-widget position-fixed bottom-0 end-0 p-4" style={{ zIndex: 9999 }}>
 
             {/* Chat card */}
             {open && (
                 <div
-                    className="card shadow mb-3"
+                    className="chat-widget-card card shadow mb-3"
                     style={{ width: 300, height: 380 }}
                 >
                     {/* Header */}
-                    <div className="card-header d-flex align-items-center gap-2 py-2">
+                    <div className="chat-widget-header card-header d-flex align-items-center gap-2 py-2">
             <span
-                className="rounded-circle bg-success"
+                className="chat-online-dot rounded-circle"
                 style={{ width: 8, height: 8, display: "inline-block" }}
             />
                         <div className="flex-grow-1">
                             <div className="fw-medium" style={{ fontSize: 13 }}>AI Assistant</div>
-                            <div className="text-muted" style={{ fontSize: 11 }}>Online</div>
+                            <div className="chat-online-status" style={{ fontSize: 11 }}>Online</div>
                         </div>
                         <button
-                            className="btn-close"
+                            className="chat-widget-close btn-close"
                             style={{ fontSize: 10 }}
                             onClick={() => setOpen(false)}
                             aria-label="Close"
@@ -82,7 +82,7 @@ export default function ChatWidget() {
 
                     {/* Messages */}
                     <div
-                        className="card-body overflow-auto d-flex flex-column gap-2 p-2"
+                        className="chat-widget-body card-body overflow-auto d-flex flex-column gap-2 p-2"
                         style={{ flex: 1 }}
                     >
                         {messages.map((msg, i) => (
@@ -91,12 +91,11 @@ export default function ChatWidget() {
                                 className={`d-flex ${msg.role === "user" ? "justify-content-end" : "justify-content-start"}`}
                             >
                                 <div
-                                    className={`px-2 py-2 rounded ${msg.role === "user" ? "text-white" : "bg-light border text-dark"}`}
+                                    className={`chat-bubble px-2 py-2 ${msg.role === "user" ? "chat-bubble-user" : "chat-bubble-assistant"}`}
                                     style={{
                                         maxWidth: "82%",
                                         fontSize: 13,
                                         lineHeight: 1.5,
-                                        backgroundColor: msg.role === "user" ? "#185FA5" : undefined,
                                         borderRadius: msg.role === "user" ? "10px 4px 10px 10px" : "4px 10px 10px 10px",
                                     }}
                                 >
@@ -107,12 +106,12 @@ export default function ChatWidget() {
 
                         {loading && (
                             <div className="d-flex justify-content-start">
-                                <div className="bg-light border px-3 py-2 rounded d-flex gap-1 align-items-center">
+                                <div className="chat-typing-indicator px-3 py-2 rounded d-flex gap-1 align-items-center">
                                     {([0, 0.2, 0.4] as number[]).map((d, i) => (
                                         <span
                                             key={i}
-                                            className="rounded-circle bg-secondary"
-                                            style={{ width: 6, height: 6, display: "inline-block", animation: `pulse 1.2s infinite ${d}s` }}
+                                            className="chat-typing-dot rounded-circle"
+                                            style={{ width: 6, height: 6, display: "inline-block", animation: `chatPulse 1.2s infinite ${d}s` }}
                                         />
                                     ))}
                                 </div>
@@ -122,11 +121,11 @@ export default function ChatWidget() {
                     </div>
 
                     {/* Input */}
-                    <div className="card-footer d-flex gap-2 p-2">
+                    <div className="chat-widget-footer card-footer d-flex gap-2 p-2">
                         <input
                             autoFocus
                             type="text"
-                            className="form-control form-control-sm"
+                            className="chat-widget-input form-control form-control-sm"
                             value={input}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}
@@ -134,7 +133,7 @@ export default function ChatWidget() {
                             disabled={loading}
                         />
                         <button
-                            className="btn btn-primary btn-sm d-flex align-items-center justify-content-center flex-shrink-0"
+                            className="chat-send-btn btn btn-sm d-flex align-items-center justify-content-center flex-shrink-0"
                             onClick={sendMessage}
                             disabled={loading || !input.trim()}
                             style={{ width: 32, height: 32, padding: 0 }}
@@ -150,7 +149,7 @@ export default function ChatWidget() {
             {/* FAB */}
             <div className="d-flex justify-content-end">
                 <button
-                    className="btn btn-primary rounded-circle d-flex align-items-center justify-content-center shadow"
+                    className="chat-fab btn rounded-circle d-flex align-items-center justify-content-center shadow"
                     onClick={() => setOpen(o => !o)}
                     style={{ width: 48, height: 48, padding: 0 }}
                 >
@@ -160,8 +159,7 @@ export default function ChatWidget() {
                     </svg>
                 </button>
             </div>
-
-            <style>{`@keyframes pulse { 0%,60%,100%{opacity:.3} 30%{opacity:1} }`}</style>
         </div>
     );
 }
+
