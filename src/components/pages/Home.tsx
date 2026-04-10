@@ -32,10 +32,15 @@ export default function Home() {
             <div className="lore-subjects">
                 {loreSubject.length > 0 && (
                     loreSubject.map(loreSubject => (
-                        <div key={loreSubject.id} className="pb-3">
-                            <Link to={`/details/${loreSubject.id}`}>
+                        <div key={loreSubject.id} className="lore-subject-card">
+                            <Link to={`/details/${loreSubject.id}`} className="lore-subject-link">
                                 {loreSubject.name}
-                                <img src={loreSubject.imageFilePath} />
+                                <img
+                                    className="lore-subject-image"
+                                    src={loreSubject.imageFilePath}
+                                    alt={loreSubject.name}
+                                    loading="lazy"
+                                />
                             </Link>
                         </div>
                     ))

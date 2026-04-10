@@ -12,6 +12,10 @@ export default function Details() {
     const COOKIE_KEY = "shopping_cart";
 
     useEffect(() => {
+        if (!id) {
+            return;
+        }
+
         const fetchData = async () => {
             const res = await fetch('http://localhost:8080/loreSubject/' + id);
             const loreSubject = await res.json();
@@ -19,7 +23,7 @@ export default function Details() {
         };
 
         fetchData();
-    }, []);
+    }, [id]);
 
     const handleAddToCart = () => {
         const raw = Cookies.get(COOKIE_KEY);
@@ -42,16 +46,30 @@ export default function Details() {
     return (
         <section className="page-card">
             <p className="eyebrow">Item profile</p>
-            <h1>Details</h1>
+            <h1>Creature Details</h1>
             {loreSubject ? (
                 <>
                     <p className="lead">
                         View full product information for a specific lore creature file.
                     </p>
                     <div className="callout">
-                        Add the item to your cart once it matches what you are looking for.
+                        <h2>{loreSubject.name}</h2>
+                        <img
+                            className="lore-subject-image"
+                            src={loreSubject.imageFilePath}
+                            alt={loreSubject.name}
+                            loading="lazy"
+                        />
+                        <p>{loreSubject.loreSummary}</p>
+                        <p><strong>Region:</strong> {loreSubject.region}</p>
+                        <p><strong>Habitat:</strong> {loreSubject.habitat}</p>
+                        <p><strong>Evidence Level:</strong> {loreSubject.evidenceLevel}</p>
+                        <p><strong>Active Sightings:</strong> {loreSubject.activeSightings}</p>
+                        <p><strong>Threat Level:</strong> {loreSubject.threatLevel}</p>
+                        <p><strong>Price:</strong> ${loreSubject.price.toFixed(2)}</p>
                     </div>
-                    <button onClick={handleAddToCart}>Add to Cart</button>
+
+                    <button className="btn btn-primary" onClick={handleAddToCart}>Add to Cart</button>
                     {showMessage && <p className="success-message">Item added to cart!</p>}
                 </>
             ) : (

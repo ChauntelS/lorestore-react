@@ -4,4 +4,10 @@ export interface LoreSubject{
     imageFilePath: string;
     type: string;
     loreSummary: string;
+    region: string;
+    habitat: string;
+    evidenceLevel: string;
+    activeSightings: number;
+    threatLevel: string;
+    price: number;
 }
